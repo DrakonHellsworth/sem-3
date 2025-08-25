@@ -13,7 +13,8 @@ struct node
 struct node *r=NULL;
 struct node *i=NULL;
 
-struct node* newNode(int v) {
+struct node* newNode(int v) 
+{
     struct node *n=(struct node*)malloc(sizeof(struct node));
     n->d=v;
     n->l=NULL;
@@ -21,74 +22,105 @@ struct node* newNode(int v) {
     return n;
 }
 
-struct node* insertRecursive(struct node *rt,int v) {
-    if(rt==NULL)
+struct node* insRe(struct node *re,int v) 
+{
+    if(re==NULL)
+    {
         return newNode(v);
-    if(v<rt->d)
-        rt->l=insertRecursive(rt->l,v);
+    }
+    if(v<re->d)
+    {
+        re->l=insRe(re->l,v);
+    }
     else
-        rt->r=insertRecursive(rt->r,v);
-    return rt;
+    {
+        re->r=insRe(re->r,v);
+    }
+    return re;
 }
 
-void insertIterative(struct node **rt,int v) {
-    if(*rt==NULL) {
-        *rt=newNode(v);
+void insIt(struct node **it,int v) 
+{
+    if(*it==NULL) 
+    {
+        *it=newNode(v);
         return;
     }
-    struct node *cur=*rt;
+    struct node *cur=*it;
     struct node *par=NULL;
-    while(cur!=NULL) {
+    while(cur!=NULL) 
+    {
         par=cur;
         if(v<cur->d)
+        {
             cur=cur->l;
+        }
         else
+        {
             cur=cur->r;
+        }
     }
     if(v<par->d)
+    {
         par->l=newNode(v);
+    }
     else
+    {
         par->r=newNode(v);
+    }
 }
 
-int searchRecursive(struct node *rt,int v) {
-    if(rt==NULL)
+int searchRe(struct node *re,int v) 
+{
+    if(re==NULL)
         return 0;
-    if(rt->d==v)
+    if(re->d==v)
         return 1;
-    if(v<rt->d)
-        return searchRecursive(rt->l,v);
-    return searchRecursive(rt->r,v);
+    if(v<re->d)
+        return searchRe(re->l,v);
+    return searchRe(re->r,v);
 }
 
-int searchIterative(struct node *rt,int v) {
-    struct node *cur=rt;
-    while(cur!=NULL) {
+int searchIt(struct node *it,int v) 
+{
+    struct node *cur=it;
+    while(cur!=NULL) 
+    {
         if(cur->d==v)
+        {
             return 1;
+        }
         if(v<cur->d)
+        {
             cur=cur->l;
+        }
         else
+        {
             cur=cur->r;
+        }
     }
     return 0;
 }
 
-void inorderPrint(struct node *rt) {
-    struct node *st[1000];
+void inorder(struct node *f) 
+{
+    struct node *st[100];
     int top=-1;
-    struct node *cur=rt;
+    struct node *cur=f;
     int c=0;
-    while(top!=-1||cur!=NULL) {
-        while(cur!=NULL) {
+    while(top!=-1||cur!=NULL) 
+    {
+        while(cur!=NULL) 
+        {
             st[++top]=cur;
             cur=cur->l;
         }
         cur=st[top--];
         printf("%d ",cur->d);
         c++;
-        if(c>=20) {
-            printf("... (truncated)\n");
+        if(c>=20) 
+        {
+            printf("...(etc.)\n");
             return;
         }
         cur=cur->r;
@@ -96,53 +128,69 @@ void inorderPrint(struct node *rt) {
     printf("\n");
 }
 
-int main() {
+int main() 
+{
     int n,x;
-    printf("Enter number of nodes for test: ");
-    if(scanf("%d",&n)!=1) return 0;
-
+    printf("Enter number of nodes for test:");
+    if(scanf("%d",&n)!=1) 
+    {
+        return 0;
+    }
     int *a=(int*)malloc(sizeof(int)*n);
-    srand(1);
     for(x=0;x<n;x++)
+    {
         a[x]=rand();
-
+    }
     clock_t s=clock();
     for(x=0;x<n;x++)
-        r=insertRecursive(r,a[x]);
+    {
+        r=insRe(r,a[x]);
+    }
     clock_t e=clock();
-    double tRecIns=(double)(e-s)/CLOCKS_PER_SEC;
-
+    double t1=(double)(e-s)/CLOCKS_PER_SEC;
     s=clock();
     for(x=0;x<n;x++)
-        insertIterative(&i,a[x]);
+    {
+        insIt(&i,a[x]);
+    }
     e=clock();
-    double tItIns=(double)(e-s)/CLOCKS_PER_SEC;
-
+    double t2=(double)(e-s)/CLOCKS_PER_SEC;
     printf("First 20 of recursive BST (inorder): ");
-    inorderPrint(r);
+    e=clock();
+    inorder(r);
+    s=clock();
+    double t0=(double)(e-s)/CLOCKS_PER_SEC;
+    printf("Time taken for inorder traversal for recursion: %lf sec\n", t0);
     printf("First 20 of iterative BST (inorder): ");
-    inorderPrint(i);
+    
+    inorder(i);
+    s=clock();
+    int f=0;
+    for(x=0;x<n;x++)
+    {
+        if(searchRe(r,a[x])) 
+        {
+            f++;
+        }
+    }
+    e=clock();
+    double t3=(double)(e-s)/CLOCKS_PER_SEC;
 
     s=clock();
-    int found=0;
+    f=0;
     for(x=0;x<n;x++)
-        if(searchRecursive(r,a[x])) found++;
+    {
+        if(searchIt(i,a[x])) 
+        {
+            f++;
+        }
+    }
     e=clock();
-    double tRecS=(double)(e-s)/CLOCKS_PER_SEC;
-
-    s=clock();
-    found=0;
-    for(x=0;x<n;x++)
-        if(searchIterative(i,a[x])) found++;
-    e=clock();
-    double tItS=(double)(e-s)/CLOCKS_PER_SEC;
-
+    double t4=(double)(e-s)/CLOCKS_PER_SEC;
     printf("Results (n=%d):\n",n);
-    printf("Recursive insert time: %lf sec\n",tRecIns);
-    printf("Iterative insert time: %lf sec\n",tItIns);
-    printf("Recursive search time: %lf sec\n",tRecS);
-    printf("Iterative search time: %lf sec\n",tItS);
-
-    free(a);
+    printf("Recursive insert time: %lf sec\n",t1);
+    printf("Iterative insert time: %lf sec\n",t2);
+    printf("Recursive search time: %lf sec\n",t3);
+    printf("Iterative search time: %lf sec\n",t4);
     return 0;
 }
