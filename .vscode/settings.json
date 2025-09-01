@@ -58,5 +58,13 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "python-envs.defaultEnvManager": "ms-python.python:conda",
   "python-envs.defaultPackageManager": "ms-python.python:conda",
-  "python-envs.pythonProjects": []
+  "python-envs.pythonProjects": [],
+  "cSpell.words": [
+    "aiml",
+    "allclose",
+    "argmin",
+    "kmeans",
+    "linalg",
+    "proba"
+  ]
 }

@@ -156,12 +156,17 @@ int main()
     e=clock();
     double t2=(double)(e-s)/CLOCKS_PER_SEC;
     printf("First 20 of recursive BST (inorder): ");
-    e=clock();
-    inorder(r);
     s=clock();
+    inorder(r);
+    e=clock();
     double t0=(double)(e-s)/CLOCKS_PER_SEC;
     printf("Time taken for inorder traversal for recursion: %lf sec\n", t0);
     printf("First 20 of iterative BST (inorder): ");
+    s=clock();
+    inorder(i);
+    e=clock();
+    double t00=(double)(e-s)/CLOCKS_PER_SEC;
+    printf("Time taken for inorder traversal for iteration: %lf sec\n",t00);
     
     inorder(i);
     s=clock();
@@ -187,7 +192,6 @@ int main()
     }
     e=clock();
     double t4=(double)(e-s)/CLOCKS_PER_SEC;
-    printf("Results (n=%d):\n",n);
     printf("Recursive insert time: %lf sec\n",t1);
     printf("Iterative insert time: %lf sec\n",t2);
     printf("Recursive search time: %lf sec\n",t3);

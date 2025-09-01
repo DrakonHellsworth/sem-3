@@ -1,0 +1,11 @@
+,Height,Weight,Class,Cluster
+0,167,51,Underweight,1
+1,182,62,Normal,2
+2,176,69,Normal,3
+3,173,64,Normal,3
+4,172,65,Normal,3
+5,174,56,Underweight,1
+6,169,58,Normal,1
+7,173,57,Normal,1
+8,170,55,Normal,1
+9,170,57,,1
