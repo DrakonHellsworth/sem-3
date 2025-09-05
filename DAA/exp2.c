@@ -96,7 +96,7 @@ int main()
     int *b=(int*)malloc(sizeof(int)*n);
     for(int i=0;i<n;i++)
     {
-        a[i]=rand()%100000;
+        a[i]=rand();
         b[i]=a[i];
     }
     clock_t s=clock();
