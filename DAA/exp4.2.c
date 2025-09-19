@@ -18,15 +18,14 @@ int cmp(const void *a,const void *b)
 void knap(struct Item arr[],int n,int W)
 {
     qsort(arr,n,sizeof(struct Item),cmp);
-
     printf("\nAll items after sorting by value/weight:\n");
     for(int i=0;i<n;i++)
+    {
         printf("(v=%d,w=%d) ",arr[i].v,arr[i].w);
+    }
     printf("\n\n");
-
     int curW=0;
     double totVal=0.0;
-
     printf("Selected items (capacity=%d):\n",W);
     for(int i=0;i<n;i++)
     {
@@ -63,7 +62,9 @@ int main()
     struct Item arr[n];
     printf("Enter value and weight (v,w):\n");
     for(int i=0;i<n;i++)
+    {
         scanf("%d,%d",&arr[i].v,&arr[i].w);
+    }
     printf("Enter bag capacity:");
     scanf("%d",&W);
     knap(arr,n,W);
