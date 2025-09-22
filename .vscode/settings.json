@@ -66,17 +66,25 @@
     "allocm",
     "Anmol",
     "argmin",
+    "autopct",
     "Dehradun",
+    "fontsize",
     "Himanshu",
     "kmeans",
     "linalg",
+    "linestyle",
     "Mankani",
     "multrad",
     "proba",
     "Rahul",
+    "skyblue",
     "strassen",
     "subm",
     "Thapliyal",
-    "Uttrakhand"
+    "Uttrakhand",
+    "xlabel",
+    "xlim",
+    "ylabel",
+    "ylim"
   ]
 }
