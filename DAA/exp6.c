@@ -1,93 +1,114 @@
-// Matrix Chain Multiplication using DP with dynamic arrays and time
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
-#include <time.h>
 
-void printOpt(int **s,int i,int j)
+#define INF 999
+
+// ----------- Prim's Algorithm -----------
+void prim(int n,int G[20][20])
 {
-    if(i==j)
+    int vis[20]={0};
+    vis[0]=1;
+    int e=0,tot=0;
+    printf("\nEdges in MST (Prim's):\n");
+    while(e<n-1)
     {
-        printf("A%d",i+1); 
-        return;
-    }
-    printf("(");
-    printOpt(s,i,s[i][j]);
-    printOpt(s,s[i][j]+1,j);
-    printf(")");
-}
-
-int main()
-{
-    int n,opt;
-    printf("Enter number of matrices:");
-    scanf("%d",&n);
-
-    int *p=(int*)malloc(sizeof(int)*(n+1));
-    long long **dp=(long long**)malloc(sizeof(long long*)*n);
-    int **s=(int**)malloc(sizeof(int*)*n);
-    for(int i=0;i<n;i++)
-    {
-        dp[i]=(long long*)malloc(sizeof(long long)*n);
-        s[i]=(int*)malloc(sizeof(int)*n);
-    }
-
-    printf("Choose input type:\n1. Manual\n2. Random\n");
-    scanf("%d",&opt);
-
-    if(opt==1)
-    {
-        printf("Enter dimensions (n+1 numbers):\n");
-        for(int i=0;i<=n;i++) scanf("%d",&p[i]);
-    }
-    else
-    {
-        srand(time(0));
-        printf("Random dimensions: ");
-        for(int i=0;i<=n;i++)
+        int mn=INF,a=-1,b=-1;
+        for(int i=0;i<n;i++)
         {
-            p[i]=rand()%10+1;
-            printf("%d ",p[i]);
-        }
-        printf("\n");
-    }
-
-    clock_t start=clock();
-
-    for(int i=0;i<n;i++) 
-    {
-        dp[i][i]=0;
-    }
-
-    for(int l=2;l<=n;l++)
-    {
-        for(int i=0;i<=n-l;i++)
-        {
-            int j=i+l-1;
-            dp[i][j]=LLONG_MAX;
-            for(int k=i;k<j;k++)
+            if(vis[i])
             {
-                long long cost=dp[i][k]+dp[k+1][j]+(long long)p[i]*p[k+1]*p[j+1];
-                if(cost<dp[i][j])
+                for(int j=0;j<n;j++)
                 {
-                    dp[i][j]=cost;
-                    s[i][j]=k;
+                    if(!vis[j] && G[i][j])
+                    {
+                        if(G[i][j]<mn)
+                        {
+                            mn=G[i][j];
+                            a=i;
+                            b=j;
+                        }
+                    }
                 }
             }
         }
+        printf("%d - %d : %d\n",a,b,G[a][b]);
+        tot+=G[a][b];
+        vis[b]=1;
+        e++;
     }
+    printf("Total Weight = %d\n",tot);
+}
 
-    clock_t end=clock();
-    double t=(double)(end-start)/CLOCKS_PER_SEC;
+// ----------- Kruskal's Algorithm -----------
+int par[20];
 
-    printf("Minimum multiplications:%lld\n",dp[0][n-1]);
-    printf("Optimal parenthesis:");
-    printOpt(s,0,n-1);
-    printf("\nTime taken: %lf sec\n",t);
+int find(int i)
+{
+    while(par[i]!=i)
+    {
+        i=par[i];
+    }
+    return i;
+}
 
-    free(p);
-    for(int i=0;i<n;i++){free(dp[i]); free(s[i]);}
-    free(dp); free(s);
+void uni(int i,int j)
+{
+    int a=find(i);
+    int b=find(j);
+    par[a]=b;
+}
 
+void kruskal(int n,int G[20][20])
+{
+    for(int i=0;i<n;i++)
+    {
+        par[i]=i;
+    }
+    int e=0,tot=0;
+    printf("\nEdges in MST (Kruskal's):\n");
+    while(e<n-1)
+    {
+        int mn=INF,a=-1,b=-1;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(find(i)!=find(j) && G[i][j]<mn)
+                {
+                    mn=G[i][j];
+                    a=i;
+                    b=j;
+                }
+            }
+        }
+        uni(a,b);
+        printf("%d - %d : %d\n",a,b,mn);
+        tot+=mn;
+        e++;
+    }
+    printf("Total Weight = %d\n",tot);
+}
+
+// ----------- Main Function -----------
+int main()
+{
+    int n;
+    printf("Enter number of vertices:");
+    scanf("%d",&n);
+    int G[20][20];
+    printf("Enter adjacency matrix:\n");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&G[i][j]);
+            if(G[i][j]==0)
+            {
+                G[i][j]=INF; // treat 0 as no edge
+            }
+        }
+    }
+    prim(n,G);
+    kruskal(n,G);
     return 0;
 }
