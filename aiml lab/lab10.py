@@ -14,9 +14,15 @@ enc=pd.get_dummies(df,columns=cols,dtype=int)
 for col in cols:
     enc.columns=[c.replace(f"{col}_","") for c in enc.columns]
 
-print("\nEncoded Data:")
+future_cols=[c for c in enc.columns if c in df['Future Dream'].unique()]
+enc['Future Dream']=enc[future_cols].apply(lambda x:x.tolist(),axis=1)
+
+difficulty_cols=[c for c in enc.columns if c in df['Label'].unique()]
+enc['Difficulty']=enc[difficulty_cols].apply(lambda x:x.tolist(),axis=1)
+
+print("\nEncoded Data with Future Dream and Difficulty Lists:")
 print(enc)
 
 out_file="encoded_output.xlsx"
 enc.to_excel(out_file,index=False)
-print(f"\nOne-hot encoded data saved to:{out_file}")
+print(f"\nOne-hot encoded data saved to: {out_file}")
