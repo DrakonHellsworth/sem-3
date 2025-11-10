@@ -12,7 +12,7 @@ CREATE DATABASE THAPLIYAL;
 USE THAPLIYAL;
 CREATE TABLE Person (
 name VARCHAR(66) NOT NULL,
-adress varchar(66) NOT NULL,
+address varchar(66) NOT NULL,
 phone_number VARCHAR(15) PRIMARY KEY
 );
 USE ANMOL;
@@ -39,7 +39,7 @@ SELECT
     s.name, 
     s.SCHOOL_NAME, 
     s.COURSE_NAME, 
-    p.adress, 
+    p.address, 
     p.phone_number
 FROM ANMOL.Student s
 JOIN THAPLIYAL.Person p
