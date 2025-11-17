@@ -1,6 +1,12 @@
 CLEAR SCREEN;
 SET SERVEROUTPUT ON;
-UNDEFINE A B C N1 N2 N3;
+
+ACCEPT A PROMPT 'Enter A: ';
+ACCEPT B PROMPT 'Enter B: ';
+ACCEPT C PROMPT 'Enter C: ';
+ACCEPT N1 PROMPT 'Enter N1: ';
+ACCEPT N2 PROMPT 'Enter N2: ';
+ACCEPT N3 PROMPT 'Enter N3: ';
 
 -- Q1
 DECLARE
@@ -31,7 +37,6 @@ END;
 DECLARE
     n NUMBER := &N1;
     fact NUMBER := 1;
-    i NUMBER;
 BEGIN
     FOR i IN 1..n LOOP
         fact := fact * i;
@@ -46,7 +51,6 @@ DECLARE
     a NUMBER := 0;
     b NUMBER := 1;
     c NUMBER;
-    i NUMBER;
 BEGIN
     DBMS_OUTPUT.PUT_LINE(a);
     DBMS_OUTPUT.PUT_LINE(b);
@@ -63,7 +67,6 @@ END;
 DECLARE
     n NUMBER := &N3;
     s NUMBER := 0;
-    i NUMBER;
 BEGIN
     FOR i IN 1..n LOOP
         s := s + i;
