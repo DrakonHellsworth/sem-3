@@ -1,3 +1,0 @@
-aiml[[:space:]]lab/balanced_creditcard.csv filter=lfs diff=lfs merge=lfs -text
-aiml[[:space:]]lab/creditcard.csv filter=lfs diff=lfs merge=lfs -text
-*.csv filter=lfs diff=lfs merge=lfs -text
