@@ -1,0 +1,23 @@
+# Ignore Python virtual environment
+yt_env/
+venv/
+.env/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# HuggingFace + model cache (very heavy)
+huggingface/
+.cache/
+models/
+
+# Ignore VSCode workspace settings (optional)
+.vscode/
+
+# Logs
+*.log
+
+# DO NOT IGNORE CSV FILES
+# (So we DO NOT put *.csv here)
+

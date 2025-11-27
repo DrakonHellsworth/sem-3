@@ -26,3 +26,4 @@ print(enc)
 out_file="encoded_output.xlsx"
 enc.to_excel(out_file,index=False)
 print(f"\nOne-hot encoded data saved to: {out_file}")
+

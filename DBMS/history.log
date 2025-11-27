@@ -1,0 +1,45 @@
+496ae474-db27-4ae6-ad1e-0a5312f0e8ac:1764305431064:0:S:SET SERVEROUTPUT ON;
+29644ae4-116d-4fa5-a2b5-d834166da0db:1764305431211:0:S:UNDEFINE A B C N1 N2 N3;
+5a197621-2ecd-4ce4-9493-cb4627388948:1764305434473:493:S:CREATE OR REPLACE PROCEDURE greatest_num(A NUMBER, B NUMBER, C NUMBER) AS\nBEGIN\n    IF A > B AND A > C THEN\n        DBMS_OUTPUT.PUT_LINE('A is greatest: ' || A);\n    ELSIF B > A AND B > C THEN\n        DBMS_OUTPUT.PUT_LINE('B is greatest: ' || B);\n    ELSE\n        DBMS_OUTPUT.PUT_LINE('C is greatest: ' || C);\n    END IF;\nEND;\n/
+dbad3059-bc6a-49f0-83eb-ac168ec947ec:1764305435168:0:F:BEGIN\n    greatest_num(&A, &B, &C);\nEND;\n/
+f24f9cf4-30ec-4f9c-9d5e-10aea5aca7dd:1764305436855:26:S:CREATE OR REPLACE PROCEDURE print_message IS\n    i NUMBER := 1;\nBEGIN\n    WHILE i <= 20 LOOP\n        DBMS_OUTPUT.PUT_LINE('Welcome to PL/SQL Programming');\n        i := i + 1;\n    END LOOP;\nEND;\n/
+5dc9e36d-a9c6-4415-8f00-94d0e4ca24a9:1764305437048:29:S:BEGIN\n    print_message;\nEND;\n/
+d1f14a78-60fb-4560-8c1d-582ad380900d:1764305438433:31:S:CREATE OR REPLACE FUNCTION factorial(n NUMBER) RETURN NUMBER AS\n    f NUMBER := 1;\nBEGIN\n    FOR i IN 1..n LOOP\n        f := f * i;\n    END LOOP;\n    RETURN f;\nEND;\n/
+0cb65edd-ac8b-4ca8-91fa-4bd037341ead:1764305439235:24:S:CREATE OR REPLACE PROCEDURE show_factorial(n NUMBER) AS\nBEGIN\n    DBMS_OUTPUT.PUT_LINE('Factorial of ' || n || ' = ' || factorial(n));\nEND;\n/
+e5a8983f-a0e0-4bbd-b973-ef5ec46f0b69:1764305439427:0:F:BEGIN\n    show_factorial(&N1);\nEND;\n/
+b758eb4a-baa5-4052-9e92-ecb21d56334a:1764305441715:54:S:CREATE OR REPLACE PROCEDURE fibonacci(n NUMBER) AS\n    a NUMBER := 0;\n    b NUMBER := 1;\n    c NUMBER;\nBEGIN\n    IF n >= 1 THEN DBMS_OUTPUT.PUT_LINE(a); END IF;\n    IF n >= 2 THEN DBMS_OUTPUT.PUT_LINE(b); END IF;\n    FOR i IN 3..n LOOP\n        c := a + b;\n        DBMS_OUTPUT.PUT_LINE(c);\n        a := b;\n        b := c;\n    END LOOP;\nEND;\n/
+05c0a74f-e30e-46a2-83c0-4712a1bcd53d:1764305441976:0:F:BEGIN\n    fibonacci(&N2);\nEND;\n/
+04509c99-aa4a-4e60-abbf-28a24c0de876:1764305443009:13:S:CREATE OR REPLACE FUNCTION sum_n(n NUMBER) RETURN NUMBER AS\n    s NUMBER := 0;\nBEGIN\n    FOR i IN 1..n LOOP\n        s := s + i;\n    END LOOP;\n    RETURN s;\nEND;\n/
+6905fd21-12ef-4605-ba2d-a39fdede94c6:1764305443530:17:S:CREATE OR REPLACE PROCEDURE show_sum(n NUMBER) AS\nBEGIN\n    DBMS_OUTPUT.PUT_LINE('Sum of first ' || n || ' numbers = ' || sum_n(n));\nEND;\n/
+c308b03b-bc50-443d-8ab6-090b5fa5ed93:1764609228892:0:F:ALTER USER hr ACCOUNT UNLOCK;
+9a35168d-c229-4744-94a6-e3b1087b7505:1764609229129:0:F:ALTER USER hr IDENTIFIED BY ******;
+43d4e9f5-1782-41a9-a2d5-9260822dd3fe:1764609229216:0:F:GRANT CONNECT, RESOURCE TO hr;
+a335f991-4fdc-4186-b99f-2767ca9839df:1764609328628:8:S:SELECT username FROM all_users;
+bfc44e61-0975-4dc9-bdfb-f5efe2f44892:1764609329436:11:S:SELECT username FROM all_users;
+7f7dc47f-6d6b-4dbe-b253-7a3f2412bb79:1764609330191:17:S:SELECT username FROM all_users;
+87e54d3e-4a9f-4a1c-895c-0eea9b05fc81:1764609330857:14:S:SELECT username FROM all_users;
+dfc0c162-b770-480e-8863-687750ce7237:1764609774537:0:S:SET SERVEROUTPUT ON;
+ade10cc7-680b-4b8b-8377-cc37d4766240:1764609774585:0:S:UNDEFINE A;
+1be23c8e-664e-440b-9cc3-48f03bba959b:1764609775026:0:S:PROMPT Dropping previous EMPLOYEES table (if exists)...
+4c61b66d-e204-4aa8-b16d-f65604f49bc7:1764609775123:39:S:DROP TABLE employees PURGE;
+a66147de-fe56-4d78-9d95-866b27dff965:1764609775207:0:F:/
+5b0782fb-2273-4903-993e-4219153dc2b3:1764609775562:15:S:CREATE TABLE employees (\n    employee_id NUMBER PRIMARY KEY,\n    first_name  VARCHAR2(50),\n    last_name   VARCHAR2(50),\n    salary      NUMBER\n);
+11053215-560c-45be-abe4-de9016de1c90:1764609775625:0:F:/
+9578538f-67f2-44b3-872c-d9ea85329d59:1764609775730:6:S:INSERT INTO employees VALUES (101,'John','Doe',2000);
+7e9c7e95-26f6-48ef-ab43-1fb82a2a3877:1764609775806:3:S:INSERT INTO employees VALUES (102,'Alice','Smith',3000);
+523fdcbb-fdb7-43b6-9fa6-254aa9a9c5cf:1764609775870:3:S:INSERT INTO employees VALUES (103,'Bob','Brown',5000);
+6361f43b-5c98-4611-b4c8-c9bc6ff79851:1764609775951:4:S:INSERT INTO employees VALUES (104,'Lara','King',8000);
+61a8f958-7ebf-41a9-a540-03b14b4e7fe3:1764609776028:3:S:INSERT INTO employees VALUES (105,'Sam','Bose',1000);
+fb31b611-54ec-4622-93dd-2920cd7eec32:1764609776081:2:S:COMMIT;
+d8209b27-704a-4783-8ef8-94aa415e08d6:1764609776894:27:S:CREATE OR REPLACE PROCEDURE update_salary AS\n    v_count NUMBER;\nBEGIN\n    UPDATE employees\n    SET salary = salary * 1.10;\n    v_count := SQL%ROWCOUNT;\n    IF v_count>0 THEN\n        DBMS_OUTPUT.PUT_LINE(v_count ||'records updated.');\n    ELSE\n        DBMS_OUTPUT.PUT_LINE('No Change');\n    END IF;\nEND;\n/
+7e7c7cd3-7a0d-425c-bc91-2adf08533848:1764609776989:9:S:BEGIN\n    update_salary;\nEND;\n/
+5d07568d-0773-4d71-868d-b81116f3905a:1764609778661:19:S:CREATE OR REPLACE PROCEDURE show_employees AS\n    CURSOR emp_cur IS\n        SELECT employee_id, first_name, salary\n        FROM employees;\n    v_id   employees.employee_id%TYPE;\n    v_name employees.first_name%TYPE;\n    v_sal  employees.salary%TYPE;\nBEGIN\n    OPEN emp_cur;\n    LOOP\n        FETCH emp_cur INTO v_id, v_name, v_sal;\n        EXIT WHEN emp_cur%NOTFOUND;\n        DBMS_OUTPUT.PUT_LINE(\n            'ID: ' || v_id ||\n            '  Name: ' || v_name ||\n            '  Salary: ' || v_sal\n        );\n    END LOOP;\n    CLOSE emp_cur;\nEND;\n/
+f932b348-33c6-4cd5-87ee-34419728d9b1:1764609778750:7:S:BEGIN\n    show_employees;\nEND;\n/
+935c9472-697e-4a3c-b858-7596a98fd7fd:1764609778890:18:S:DROP TABLE temp_emp PURGE;
+82e32238-30f2-46b3-a6f6-5f9b42c5d9a9:1764609778953:0:F:/
+6344361f-d23b-4a48-bc3b-b6c3b55ce8f0:1764609779116:7:S:CREATE TABLE temp_emp (\n    employee_id NUMBER,\n    last_name   VARCHAR2(50),\n    salary      NUMBER\n);
+250cd358-7ac8-47b8-9dd6-349b2fe12d55:1764609779160:0:F:/
+53611658-fb60-4d87-aa03-242599ddf5fd:1764609780330:45:S:CREATE OR REPLACE PROCEDURE fill_temp_emp AS\n    CURSOR high_sal IS\n        SELECT employee_id, last_name, salary\n        FROM employees\n        WHERE salary>2500;\n    v_id    employees.employee_id%TYPE;\n    v_lname employees.last_name%TYPE;\n    v_sal   employees.salary%TYPE;\nBEGIN\n    OPEN high_sal;\n    LOOP\n        FETCH high_sal INTO v_id, v_lname, v_sal;\n        EXIT WHEN high_sal%NOTFOUND;\n        INSERT INTO temp_emp (employee_id, last_name, salary)\n        VALUES (v_id, v_lname, v_sal);\n    END LOOP;\n    CLOSE high_sal;\n    DBMS_OUTPUT.PUT_LINE('Records inserted into TEMP_EMP.');\nEND;\n/
+78a0f303-cf68-4571-bca5-4cccc0b86f33:1764609780425:8:S:BEGIN\n    fill_temp_emp;\nEND;\n/
+d3a33d56-1fb0-4fbf-b881-80b9a11a2edf:1764609780485:5:S:SELECT * FROM temp_emp;
+4f7a55d3-262a-4998-8fdf-74b5a9771bc4:1764609780528:3:S:/
